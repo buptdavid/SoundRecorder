@@ -490,6 +490,9 @@ public class SoundRecorder extends Activity implements Button.OnClickListener,
         }
     }
 
+    /**
+     * Start record 
+     */
     private void startRecording() {
         mRemainingTimeCalculator.reset();
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -963,6 +966,7 @@ public class SoundRecorder extends Activity implements Button.OnClickListener,
         }
 
         if (ongoing) {
+        	// This will make a loop of update timer every 500 ms
             mHandler.postDelayed(mUpdateTimer, 500);
         }
     }
@@ -979,6 +983,7 @@ public class SoundRecorder extends Activity implements Button.OnClickListener,
     private void updateSeekBar() {
         if (mRecorder.state() == Recorder.PLAYING_STATE) {
             mPlaySeekBar.setProgress((int) (SEEK_BAR_MAX * mRecorder.playProgress()));
+            // This will make a loop to update seek bar every 10 ms
             mHandler.postDelayed(mUpdateSeekBar, 10);
         }
     }
@@ -1038,7 +1043,7 @@ public class SoundRecorder extends Activity implements Button.OnClickListener,
                     showVUArray[i] = false;
                 }
             }
-
+            // This will make a loop of update VUMetur every 100 ms
             mHandler.postDelayed(mUpdateVUMetur, 100);
         } else if (mVUMeterLayout.getVisibility() == View.VISIBLE) {
             mPreviousVUMax = 0;
@@ -1047,6 +1052,7 @@ public class SoundRecorder extends Activity implements Button.OnClickListener,
             }
         }
 
+        // These code will simulate the rotating
         if (mVUMeterLayout.getVisibility() == View.VISIBLE) {
             mVUMeterLayout.removeAllViews();
             for (boolean show : showVUArray) {

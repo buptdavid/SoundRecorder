@@ -346,6 +346,10 @@ public class Recorder implements OnCompletionListener, OnErrorListener {
         signalStateChanged(mState);
     }
 
+    /**
+     * This method pushes the action of OnStateChangedListener.onStateChanged method, 
+     * @param state
+     */
     private void signalStateChanged(int state) {
         if (mOnStateChangedListener != null)
             mOnStateChangedListener.onStateChanged(state);

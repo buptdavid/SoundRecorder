@@ -183,6 +183,9 @@ public class RecorderService extends Service implements MediaRecorder.OnErrorLis
                 mRemainingTimeCalculator.setFileSizeLimit(new File(path), maxFileSize);
             }
 
+            /**
+             * @Knowledge MediaRecorder
+             */
             mRecorder = new MediaRecorder();
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             if (outputfileformat == MediaRecorder.OutputFormat.THREE_GPP) {
@@ -235,6 +238,9 @@ public class RecorderService extends Service implements MediaRecorder.OnErrorLis
         }
     }
 
+    /**
+     * Stop recording
+     */
     private void localStopRecording() {
         if (mRecorder != null) {
             mNeedUpdateRemainingTime = false;
@@ -290,6 +296,7 @@ public class RecorderService extends Service implements MediaRecorder.OnErrorLis
         stopForeground(true);
         mLowStorageNotification = null;
 
+        // @Knowledge Notification, To see Blog: http://blog.csdn.net/buptdavid/article/details/42706011
         Notification notification = new Notification(R.drawable.stat_sys_call_record,
                 getString(R.string.notification_stopped), System.currentTimeMillis());
         notification.flags = Notification.FLAG_AUTO_CANCEL;
@@ -304,6 +311,7 @@ public class RecorderService extends Service implements MediaRecorder.OnErrorLis
 
         notification.setLatestEventInfo(this, getString(R.string.app_name),
                 getString(R.string.notification_stopped), pendingIntent);
+        
         mNotifiManager.notify(NOTIFICATION_ID, notification);
     }
 
